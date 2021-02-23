@@ -12,7 +12,7 @@
   --text-highlight: #b3b9ff;
   --title: #2e384d;
   --red: #e83f5b;
-  --gren: #4cd62b;
+  --green: #4cd62b;
   --blue: #5965e0;
   --blue-dark: #4953b8;
   --blue-twitter: #2aa9e0;
@@ -56,34 +56,4 @@ a {
 
   display: flex;
   flex-direction: column;
-}
-
-.expirience-bar {
-  display: flex;
-  align-items: center;
-}
-
-.expirience-bar span {
-  font-size: 1rem;
-}
-
-.expirience-bar > div {
-  flex: 1;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--gray-line);
-  margin: 0 1.5rem;
-  position: relative;
-}
-
-.expirience-bar > div > div {
-  height: 4px;
-  border-radius: 4px;
-  background: var(--gren);
-}
-
-span.current-expirience {
-  position: absolute;
-  top: 12px;
-  transform: translateX(-50%);
 }

@@ -1,9 +1,9 @@
-import { ExpirienceBar } from '../components/ExpirienceBar'
+import { ExperienceBar } from '../components/ExperienceBar'
 
 export default function Home() {
   return (
     <div className="container">
-      <ExpirienceBar />
+      <ExperienceBar />
     </div>
   )
 }
