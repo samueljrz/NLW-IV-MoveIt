@@ -18,12 +18,16 @@ export function CountDown() {
   const [secondLeft, secondRight] = String(seconds).length > 1 ? String(seconds).split('') : ['0', String(seconds)]
 
   function startCountDown() {
-    if(!active) {
+    if(!active && time > 0) {
       setActive(true)
       setText('Pausar o ciclo')
-    }else {
+    }else if(active && time > 0){
       setActive(false)
       setText('Retorna o ciclo')
+    }else if(active && time === 0) {
+      setText('Iniciar um ciclo')
+      setActive(false)
+      setTime(25*60)
     }
   }
 
@@ -32,6 +36,9 @@ export function CountDown() {
       setTimeout(() => {
         setTime(time - 1)
       }, 1000);
+    }
+    if(time === 0) {
+      setText('Reset')
     }
   }, [active, time])
 
@@ -50,7 +57,7 @@ export function CountDown() {
       </div>
       <button 
         type="button" 
-        className={styles.countDownButton}
+        className={text != 'Reset' ? styles.countDownButton : styles.countDownButtonReset}
         onClick={startCountDown}
       >
         {text}
