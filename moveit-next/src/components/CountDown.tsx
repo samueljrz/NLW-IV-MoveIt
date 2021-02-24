@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
 import styles from '../styles/components/CountDown.module.css'
 
+enum countDownButtonLabels {
+  pauseCycle = 'Pausar o ciclo',
+  initialCycle = 'Iniciar um ciclo',
+  returnCycle = 'Retorna o ciclo',
+  resetCycle = 'Reset'
+}
+
 export function CountDown() {
   const [time, setTime] = useState(25*60)
   const [active, setActive] = useState(false)
-  const [text, setText] = useState('Iniciar um ciclo')
+  const [text, setText] = useState(countDownButtonLabels.initialCycle)
   
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -20,12 +27,12 @@ export function CountDown() {
   function startCountDown() {
     if(!active && time > 0) {
       setActive(true)
-      setText('Pausar o ciclo')
+      setText(countDownButtonLabels.pauseCycle)
     }else if(active && time > 0){
       setActive(false)
-      setText('Retorna o ciclo')
+      setText(countDownButtonLabels.returnCycle)
     }else if(active && time === 0) {
-      setText('Iniciar um ciclo')
+      setText(countDownButtonLabels.initialCycle)
       setActive(false)
       setTime(25*60)
     }
@@ -38,7 +45,7 @@ export function CountDown() {
       }, 1000);
     }
     if(time === 0) {
-      setText('Reset')
+      setText(countDownButtonLabels.resetCycle)
     }
   }, [active, time])
 
