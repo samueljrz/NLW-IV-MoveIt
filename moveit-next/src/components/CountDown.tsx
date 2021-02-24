@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { ChallengesContext } from '../contexts/ChallengesContext'
 import styles from '../styles/components/CountDown.module.css'
 
 let countDownTimeout: NodeJS.Timeout
@@ -12,6 +13,8 @@ enum countDownButtonLabels {
 }
 
 export function CountDown() {
+  const { startNewChallenge } = useContext(ChallengesContext)
+  
   const [time, setTime] = useState(5*1)
   const [isActive, setIsActive] = useState(false)
   const [isPause, setIsPause] = useState(false)
@@ -43,11 +46,6 @@ export function CountDown() {
       setText(countDownButtonLabels.initialCycle)
       clearTimeout(countDownTimeout)
       setTime(25*60)
-    }else if(isActive && time === 0) {
-      setIsActive(false)
-      setIsPause(false)
-      setText(countDownButtonLabels.initialCycle)
-      setTime(25*60)
     }
   }
 
@@ -65,10 +63,11 @@ export function CountDown() {
         setTime(time - 1)
       }, 1000);
     }
-    if(time === 0) {
+    if(isActive && time === 0) {
       setHasFinished(true);
       setIsActive(false);
       setText(countDownButtonLabels.finishedCycle)
+      startNewChallenge()
     }
   }, [isActive, isPause, time])
 
