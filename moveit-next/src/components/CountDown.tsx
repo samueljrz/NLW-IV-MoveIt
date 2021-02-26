@@ -17,14 +17,14 @@ export function CountDown() {
   
   const [time, setTime] = useState(5*1)
   const [isActive, setIsActive] = useState(false)
-  const [isPause, setIsPause] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const [hasFinished, setHasFinished] = useState(false) 
   const [text, setText] = useState(countDownButtonLabels.initialCycle)
   
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
-  const labels = !isPause ? countDownButtonLabels.pauseCycle : countDownButtonLabels.returnCycle
+  const label = !isPaused ? countDownButtonLabels.pauseCycle : countDownButtonLabels.returnCycle
   const conditionToStart = text != countDownButtonLabels.leaveCycle ? styles.countDownButton : `${styles.countDownButton} ${styles.countDownButtonReset}`
   const conditionToPause = isActive && text != countDownButtonLabels.finishedCycle
 
@@ -42,7 +42,7 @@ export function CountDown() {
       setText(countDownButtonLabels.leaveCycle)
     }else if(isActive && time > 0) {
       setIsActive(false)
-      setIsPause(false)
+      setIsPaused(false)
       setText(countDownButtonLabels.initialCycle)
       clearTimeout(countDownTimeout)
       setTime(25*60)
@@ -50,15 +50,15 @@ export function CountDown() {
   }
 
   function pauseCountDown() {
-    if(!isPause && time > 0) {
-      setIsPause(true)
-    }else if(isPause && time > 0){
-      setIsPause(false)
+    if(!isPaused && time > 0) {
+      setIsPaused(true)
+    }else if(isPaused && time > 0){
+      setIsPaused(false)
     }
   }
 
   useEffect(() => {
-    if(isActive && !isPause &&  time > 0) {
+    if(isActive && !isPaused &&  time > 0) {
       countDownTimeout = setTimeout(() => {
         setTime(time - 1)
       }, 1000);
@@ -69,7 +69,7 @@ export function CountDown() {
       setText(countDownButtonLabels.finishedCycle)
       startNewChallenge()
     }
-  }, [isActive, isPause, time])
+  }, [isActive, isPaused, time])
 
   return (
     <div>
@@ -107,7 +107,7 @@ export function CountDown() {
               className={`${styles.countDownButton} ${styles.countDownButtonPause}`}
               onClick={pauseCountDown}
             >
-              {labels}
+              {label}
             </button> : null 
           }
         </>
