@@ -23,6 +23,7 @@ interface CountDownContextData {
   isPaused: boolean;
   startCountDown: () => void;
   pauseCountDown: () => void;
+  resetCountDown: () => void;
 }
 
 interface CountDownProviderProps{
@@ -62,6 +63,15 @@ export function CountDownProvider({ children } : CountDownProviderProps) {
     }
   }
 
+  function resetCountDown() {
+    setIsActive(false)
+    setIsPaused(false)
+    setText(countDownButtonLabels.initialCycle)
+    clearTimeout(countDownTimeout)
+    setTime(25*60)
+    setHasFinished(false)
+  }
+
   function pauseCountDown() {
     if(!isPaused && time > 0) {
       setIsPaused(true)
@@ -98,6 +108,7 @@ export function CountDownProvider({ children } : CountDownProviderProps) {
         isPaused,
         startCountDown,
         pauseCountDown,
+        resetCountDown,
       }}
     >
       {children}
