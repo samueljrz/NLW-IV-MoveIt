@@ -13,7 +13,7 @@ export function CountDown() {
     startCountDown, 
     conditionToPause, 
     pauseCountDown, 
-    labels,
+    label,
   } = useContext(CountDownContext)
   
   // Diego way
